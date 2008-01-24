@@ -97,4 +97,4 @@ if __name__ == "__main__":
 		process_phrase_file (fname)
 		save_a_file_to_svn (fname + ".out")
 		print fname + " finished"
-		time.sleep (15)
+		time.sleep (30)
