@@ -3,10 +3,13 @@
 import urllib2
 import urllib
 import re
-import sys
+import sys, os
 import time
 import traceback
 import os.path as path
+import random
+
+random.seed (time.time ())
 #from urlgrabber.keepalive import HTTPHandler
 
 SEARCH_URL = "http://www.google.com/search?hl=en&lr=&as_qdr=all&%s&btnG=Search"
@@ -55,31 +58,43 @@ def process_phrase_file (name):
 
 	if result == False: # Did not get any usefull data from google.
 		print >> sys.stderr, "This time you did not get any usefull data from google. we should stop and try later."
-		return
+		sys.exit (-1)
 
 	output = file (name + ".out", "w")
 	for line in lines:
 		print >>output, line
 		
 def pick_a_file (files):
-	pass
+	os.system ("svn update data")
+	remove_out = lambda x : x[:-4]
+	done_files = map (remove_out, glob.glob ("data/phrase.????.out"))
 
-def save_a_file_to_svn (file):
-	pass
+	files_new = list (set (files) - set (done_files))
+	if files_new:
+		return files_new [random.randint (0, len (files_new) - 1)]
+	else:
+		return None
+
+def save_a_file_to_svn (file_name):
+	os.system ("svn add %s" % file_name)
+	os.system ("svn ci %s -m \"add %s\"" % (file_name, file_name))
 
 if __name__ == "__main__":
 	#for keyword in sys.argv[1:]:
 	#	print get_search_result (keyword)
 	import glob
 	files = glob.glob ("data/phrase.????")
-	remove_out = lambda x : x[:-4]
-	done_files = map (remove_out, glob.glob ("data/phrase.????.out"))
 	files.sort ()
-	for fname in files:
+	while True:
+		fname = pick_a_file (files)
+		if fname == None:
+			print "All were done!"
+			break
 		if path.exists (fname + ".out"):
 			print fname + " finished"
 			continue
 		print "Start process " + fname
 		process_phrase_file (fname)
+		save_a_file_to_svn (fname + ".out")
 		print fname + " finished"
 		time.sleep (15)
