@@ -61,12 +61,19 @@ def process_phrase_file (name):
 	for line in lines:
 		print >>output, line
 		
+def pick_a_file (files):
+	pass
+
+def save_a_file_to_svn (file):
+	pass
 
 if __name__ == "__main__":
 	#for keyword in sys.argv[1:]:
 	#	print get_search_result (keyword)
 	import glob
 	files = glob.glob ("data/phrase.????")
+	remove_out = lambda x : x[:-4]
+	done_files = map (remove_out, glob.glob ("data/phrase.????.out"))
 	files.sort ()
 	for fname in files:
 		if path.exists (fname + ".out"):
