@@ -36,11 +36,14 @@ def process_phrase_file (name):
 	phrases = []
 	phrases_dict = {}
 	lines = []
+	result = False
 	
 	for l in open (name):
 		phrase = l.strip ()
 		try:
 			freq = get_search_result (phrase)
+			if freq != -1:
+				result = True
 		except KeyboardInterrupt, e:
 			print >> sys.stderr, "Exit"
 			sys.exit (1)
@@ -49,6 +52,10 @@ def process_phrase_file (name):
 		line = "%s\t%d" % (phrase, freq)
 		print line
 		lines.append (line)
+
+	if result == False: # Did not get any usefull data from google.
+		print >> sys.stderr, "This time you did not get any usefull data from google. we should stop and try later."
+		return
 
 	output = file (name + ".out", "w")
 	for line in lines:
