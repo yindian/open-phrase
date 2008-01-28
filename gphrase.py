@@ -145,7 +145,7 @@ def pick_a_file (files):
 
 def save_a_file_to_svn (file_name):
 	os.system ("svn add %s" % file_name)
-	os.system ("svn ci -m \"add %s\"" % (file_name))
+	os.system ("svn ci data -m \"add %s\"" % (file_name))
 
 if __name__ == "__main__":
 	#for keyword in sys.argv[1:]:
