@@ -121,6 +121,8 @@ def process_phrase_file (name, total):
 			except KeyboardInterrupt, e:
 				print >> sys.stderr, "Exit"
 				sys.exit (1)
+			except :
+				print >> sys.stderr, "retry"
 		line = "%s\t%d" % (phrase, freq)
 		print line
 		lines.append (line)
