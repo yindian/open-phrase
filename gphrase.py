@@ -105,12 +105,8 @@ def process_phrase_file (name, total):
 					sys.exit (-1)
 			except socket.error, e:
 				print socket.error,e
-				print "we pause 15s now:)"
-				time.sleep(15)
 			except urllib2.URLError,e:
 				print urllib2.URLError, e
-				print "we have to wait 15s :("
-				time.sleep(15)
 			except KeyboardInterrupt, e:
 				print >> sys.stderr, "Exit"
 				sys.exit (1)
