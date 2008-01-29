@@ -78,31 +78,20 @@ def get_search_result (keyword, ip):
 		m = re_non.findall(l)
 		if m:
 			freq = 0
-	# write for debug:
-	ef=file('err.html','w')
-	ef.writelines(fetch)
-	ef.close()
 	return freq
 
 def process_phrase_file (name, total):
 	lines = []
-	rd_n = _rd_n=0
 	for l in open (name):
-		result = False
 		phrase = l.strip ()
-		while not result:
+		while True:
 			try:
-		#		print phrase
-				while rd_n == _rd_n: 
-					rd_n = random.randint(0,len(g_list)-1)
-				_rd_n =rd_n
-				print rd_n
-				freq = get_search_result (phrase,g_list[ rd_n ])
-				if freq != -1:
-					result = True
-				else:
+				freq = get_search_result (phrase, random.choice(g_list) )
+				if freq == -1:
 					print >> sys.stderr, "During searching for \"%s\", we are banned from google. we should stop and try later." % phrase
 					sys.exit (-1)
+				else:
+					break
 			except socket.error, e:
 				print socket.error,e
 			except urllib2.URLError,e:
@@ -116,23 +105,17 @@ def process_phrase_file (name, total):
 		print line
 		lines.append (line)
 		total += 1
-	if result == False: # Did not get any usefull data from google.
-		print >> sys.stderr, "This time you did not get any usefull data from google. we should stop and try later."
-		sys.exit (-1)
-
 	output = file (name + ".out", "w")
 	for line in lines:
 		print >>output, line
 	return total
 		
 def pick_a_file (files):
-	#~ os.system ("svn update data")
 	remove_out = lambda x : x[:-4]
 	done_files = map (remove_out, glob.glob ("data/phrase.????.out"))
-
 	files_new = list (set (files) - set (done_files))
 	if files_new:
-		return files_new [random.randint (0, len (files_new) - 1)]
+		return random.choice(files_new)
 	else:
 		return None
 
