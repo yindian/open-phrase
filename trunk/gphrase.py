@@ -137,7 +137,7 @@ def process_phrase_file (name, total):
 	return total
 		
 def pick_a_file (files):
-	os.system ("svn update data")
+	# os.system ("svn update data")
 	remove_out = lambda x : x[:-4]
 	done_files = map (remove_out, glob.glob ("data/phrase.????.out"))
 
@@ -148,8 +148,9 @@ def pick_a_file (files):
 		return None
 
 def save_a_file_to_svn (file_name):
-	os.system ("svn add %s" % file_name)
-#	os.system ("svn ci data -m \"yufan add %s\"" % (file_name))
+	# os.system ("svn add %s" % file_name)
+	# os.system ("svn ci data -m \"yufan add %s\"" % (file_name))
+	pass
 
 if __name__ == "__main__":
 	#for keyword in sys.argv[1:]:
