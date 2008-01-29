@@ -143,7 +143,7 @@ def pick_a_file (files):
 if __name__ == "__main__":
 	#for keyword in sys.argv[1:]:
 	#	print get_search_result (keyword)
-	socket.setdefaulttimeout(timeout)
+	socket.setdefaulttimeout(15)
 	import glob
 	files = glob.glob ("data/phrase.????")
 	files.sort ()
