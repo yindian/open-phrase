@@ -35,8 +35,8 @@ g_list=[\
 		("72.14.235.147","http://72.14.235.147/search?%s&hl=zh_CN&newwindow=1&c2coff=1&lr=","http://72.14.235.147/search?%s&complete=1&hl=zh_CN&lr=&newwindow=1&c2coff=1&as_qdr=all&start=10&sa=N"),
 		("203.208.37.104","http://203.208.37.104/search?%s&hl=zh_CN&newwindow=1&c2coff=1&lr=","http://www.google.cn/search?%s&complete=1&hl=zh_CN&lr=&newwindow=1&c2coff=1&as_qdr=all&start=10&sa=N"),
 		("64.233.169.147","http://64.233.169.147/search?%s&hl=zh_CN&newwindow=1&c2coff=1&lr=","http://64.233.169.147/search?%s&complete=1&hl=zh_CN&lr=&newwindow=1&c2coff=1&as_qdr=all&start=10&sa=N"),
-		("66.249.89.147","http://64.233.169.147/search?%s&hl=zh_CN&newwindow=1&c2coff=1&lr=","http://66.249.89.147/search?%s&complete=1&hl=zh_CN&lr=&newwindow=1&c2coff=1&as_qdr=all&start=10&sa=N"),
-		("203.208.37.99","http://64.233.169.147/search?%s&hl=zh_CN&newwindow=1&c2coff=1&lr=","http://64.233.169.147/search?%s&complete=1&hl=zh_CN&lr=&newwindow=1&c2coff=1&as_qdr=all&start=10&sa=N")] #&nxpt=10.0827085840279239193376")]
+		("66.249.89.147","http://66.249.89.147/search?%s&hl=zh_CN&newwindow=1&c2coff=1&lr=","http://66.249.89.147/search?%s&complete=1&hl=zh_CN&lr=&newwindow=1&c2coff=1&as_qdr=all&start=10&sa=N"),
+		("203.208.37.99","http://203.208.37.99/search?%s&hl=zh_CN&newwindow=1&c2coff=1&lr=","http://203.208.37.99/search?%s&complete=1&hl=zh_CN&lr=&newwindow=1&c2coff=1&as_qdr=all&start=10&sa=N")] #&nxpt=10.0827085840279239193376")]
 
 def fake_link (keyword,g_tuple):
 	param0 = urllib.urlencode ({"q": "\"%s\"" % keyword})
@@ -87,7 +87,7 @@ def process_phrase_file (name, total):
 		# we take a rest of 15s for every 1000 times:)
 		if total % 1000 ==0 and total != 0:
 			print 'It time to pause a bit :)'
-		sl_t = random.randint(3,12)/5.
+		sl_t = random.randint(3,12)/20.
 		print 'pause a while of %03f s' %sl_t
 		time.sleep(sl_t)
 		phrase = l.strip ()
@@ -147,7 +147,7 @@ def pick_a_file (files):
 
 def save_a_file_to_svn (file_name):
 	os.system ("svn add %s" % file_name)
-	os.system ("svn ci data -m \"yufan add %s\"" % (file_name))
+#	os.system ("svn ci data -m \"yufan add %s\"" % (file_name))
 
 if __name__ == "__main__":
 	#for keyword in sys.argv[1:]:
